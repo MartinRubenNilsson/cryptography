@@ -1,0 +1,442 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17227,        434]
+NotebookOptionsPosition[     16929,        420]
+NotebookOutlinePosition[     17264,        435]
+CellTagsIndexPosition[     17221,        432]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"OnEC", "::", "usage"}], "=", 
+   "\"\<Check if P is on the elliptic curve y^2=x^3+Ax+B mod p.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"OnEC", "[", 
+     RowBox[{"A_", ",", " ", "B_", ",", " ", "p_", ",", " ", "P_"}], "]"}], 
+    " ", ":=", " ", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"P", " ", "\[Equal]", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", " ", "0"}], "}"}]}], ",", 
+      "\[IndentingNewLine]", "True", ",", "\[IndentingNewLine]", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Mod", " ", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"P", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "^", "2"}], " ", "-", " ", 
+           RowBox[{
+            RowBox[{"P", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "^", "3"}], " ", "-", " ", 
+           RowBox[{"A", "*", 
+            RowBox[{"P", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], " ", "-", " ", "B"}], ",", " ",
+           "p"}], "]"}], " ", "\[Equal]", " ", "0"}], ")"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CountPoint", "::", "usage"}], "=", 
+   "\"\<Count the number of points on the elliptic curve y^2=x^3+Ax+B mod \
+p.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CountPoint", "[", 
+     RowBox[{"A_", ",", " ", "B_", ",", " ", "p_"}], "]"}], " ", ":=", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Count", "[", 
+     RowBox[{
+      RowBox[{"Flatten", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"OnEC", "[", 
+          RowBox[{"A", ",", " ", "B", ",", " ", "p", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", " ", "y"}], "}"}]}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", " ", "0", ",", " ", 
+           RowBox[{"p", "-", "1"}]}], "}"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", " ", "0", ",", " ", 
+           RowBox[{"p", "-", "1"}]}], "}"}]}], "]"}], "]"}], ",", " ", "0"}], 
+     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ECAdd", "::", "usage"}], "=", 
+   "\"\<Compute P+Q on the elliptic curve y^2=x^3+Ax+B mod p.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ECAdd", "[", 
+     RowBox[{"A_", ",", " ", "p_", ",", " ", "P_", ",", " ", "Q_"}], "]"}], 
+    " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "x1", ",", " ", "y1", ",", " ", "x2", ",", " ", "y2", ",", " ", "z", 
+        ",", " ", "x3", ",", " ", "y3"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x1", ",", " ", "y1"}], "}"}], " ", "=", " ", "P"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x2", ",", " ", "y2"}], "}"}], " ", "=", " ", "Q"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"x1", " ", "\[Equal]", " ", 
+          RowBox[{"-", "1"}]}], ",", " ", 
+         RowBox[{"Return", "[", "Q", "]"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"x2", " ", "\[Equal]", " ", 
+          RowBox[{"-", "1"}]}], ",", " ", 
+         RowBox[{"Return", "[", "P", "]"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"x1", " ", "\[Equal]", " ", "x2"}], " ", "&&", " ", 
+          RowBox[{
+           RowBox[{"y1", " ", "+", " ", "y2"}], " ", "\[Equal]", " ", "p"}]}],
+          ",", " ", 
+         RowBox[{"Return", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", " ", "0"}], "}"}], "]"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"P", " ", "\[NotEqual]", " ", "Q"}], ",", 
+         "\[IndentingNewLine]", "\t", 
+         RowBox[{"z", " ", "=", " ", 
+          RowBox[{"Mod", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"y2", " ", "-", " ", "y1"}], ")"}], "*", 
+             RowBox[{"PowerMod", "[", 
+              RowBox[{
+               RowBox[{"x2", "-", "x1"}], ",", " ", 
+               RowBox[{"-", "1"}], ",", " ", "p"}], "]"}]}], ",", " ", "p"}], 
+           "]"}]}], ",", "\[IndentingNewLine]", "\t", 
+         RowBox[{"z", " ", "=", " ", 
+          RowBox[{"Mod", " ", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"3", "*", 
+                RowBox[{"x1", "^", "2"}]}], " ", "+", " ", "A"}], ")"}], "*", 
+             
+             RowBox[{"PowerMod", "[", 
+              RowBox[{
+               RowBox[{"2", "*", " ", "y1"}], ",", " ", 
+               RowBox[{"-", "1"}], ",", " ", "p"}], "]"}]}], ",", " ", "p"}], 
+           "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"x3", " ", "=", " ", 
+        RowBox[{"Mod", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"z", "^", "2"}], " ", "-", " ", "x1", " ", "-", " ", 
+           "x2"}], ",", " ", "p"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"y3", " ", "=", " ", 
+        RowBox[{"Mod", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"z", "*", 
+            RowBox[{"(", 
+             RowBox[{"x1", " ", "-", " ", "x3"}], ")"}]}], " ", "-", " ", 
+           "y1"}], ",", "p"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"{", 
+         RowBox[{"x3", ",", " ", "y3"}], "}"}], "]"}], ";"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ECSub", "::", "usage"}], "=", 
+   "\"\<Compute P-Q on the elliptic curve y^2=x^3+Ax+B mod p.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ECSub", "[", 
+     RowBox[{"A_", ",", " ", "p_", ",", " ", "P_", ",", " ", "Q_"}], "]"}], 
+    " ", ":=", " ", 
+    RowBox[{"ECAdd", "[", 
+     RowBox[{"A", ",", " ", "p", ",", " ", "P", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Q", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+        RowBox[{"p", "-", 
+         RowBox[{"Q", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"BinaryExp", "::", "usage"}], "=", 
+   "\"\<Write n=d0+d1*2+d2*2^2+...+dk*2^k with each di in {0, 1} and return \
+{d0, d1, ..., dk}.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"BinaryExp", "[", "n_", "]"}], " ", ":=", " ", 
+    RowBox[{"Reverse", "[", 
+     RowBox[{"IntegerDigits", "[", 
+      RowBox[{"n", ",", " ", "2"}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TernaryExpHelper", "[", "l_", "]"}], " ", ":=", " ", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", "l", "]"}], ">", "2"}], ",", " ", 
+      RowBox[{"Catenate", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"-", "1"}], "}"}], ",", " ", 
+         RowBox[{"ConstantArray", "[", 
+          RowBox[{"0", ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "[", "l", "]"}], "-", "2"}]}], "]"}], ",", " ", 
+         
+         RowBox[{"{", "1", "}"}]}], "}"}], "]"}], ",", " ", "l"}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TernaryExp", "::", "usage"}], "=", 
+   "\"\<Write n=d0+d1*2+d2*2^2+...+dk*2^k with each di in {-1, 0, 1} and \
+return {d0, d1, ..., dk}.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TernaryExp", "[", "n_", "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"bin", ",", " ", "split"}], "}"}], ",", "\[IndentingNewLine]", 
+      
+      RowBox[{
+       RowBox[{"bin", " ", "=", " ", 
+        RowBox[{"Append", "[", 
+         RowBox[{
+          RowBox[{"Reverse", "[", 
+           RowBox[{"IntegerDigits", "[", 
+            RowBox[{"n", ",", " ", "2"}], "]"}], "]"}], ",", " ", "0"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"split", " ", "=", "  ", 
+        RowBox[{"Split", "[", 
+         RowBox[{"bin", ",", " ", 
+          RowBox[{
+           RowBox[{"#1", "\[NotEqual]", "0"}], "&"}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"Flatten", "[", 
+         RowBox[{"Map", "[", 
+          RowBox[{"TernaryExpHelper", ",", " ", "split"}], "]"}], "]"}], 
+        "]"}]}]}], "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ECMult", "::", "usage"}], "=", 
+   "\"\<Compute nP given a point P on the elliptic curve y^2=x^3+Ax+B mod p \
+using either the binary or ternary double-and-add algorithm.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"ECMult", "[", 
+     RowBox[{
+     "A_", ",", " ", "p_", ",", " ", "P_", ",", " ", "n_", ",", " ", 
+      "method_"}], "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "Double", ",", " ", "d", ",", " ", "Pmult", ",", " ", "res", ",", " ", 
+        "i"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Double", " ", "=", " ", 
+        RowBox[{"Function", "[", 
+         RowBox[{"R", ",", " ", 
+          RowBox[{"ECAdd", "[", 
+           RowBox[{"A", ",", " ", "p", ",", " ", "R", ",", " ", "R"}], 
+           "]"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Switch", "[", 
+        RowBox[{"method", ",", "\[IndentingNewLine]", "\"\<b\>\"", ",", " ", 
+         RowBox[{"d", " ", "=", " ", 
+          RowBox[{"BinaryExp", "[", "n", "]"}]}], ",", "\[IndentingNewLine]", 
+         "\"\<t\>\"", ",", " ", 
+         RowBox[{"d", " ", "=", " ", 
+          RowBox[{"TernaryExp", "[", "n", "]"}]}]}], "\[IndentingNewLine]", 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Pmult", " ", "=", " ", "P"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"res", " ", "=", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", " ", "0"}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", " ", 
+         RowBox[{"i", " ", "\[LessEqual]", " ", 
+          RowBox[{"Length", "[", "d", "]"}]}], ",", " ", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Switch", "[", 
+           RowBox[{
+            RowBox[{"d", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], ",", "\[IndentingNewLine]", "1", 
+            ",", " ", 
+            RowBox[{"res", " ", "=", " ", 
+             RowBox[{"ECAdd", "[", 
+              RowBox[{
+              "A", ",", " ", "p", ",", " ", "res", ",", " ", "Pmult"}], 
+              "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{"-", "1"}], ",", " ", 
+            RowBox[{"res", " ", "=", " ", 
+             RowBox[{"ECSub", "[", 
+              RowBox[{
+              "A", ",", " ", "p", ",", " ", "res", ",", " ", "Pmult"}], 
+              "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Pmult", " ", "=", " ", 
+           RowBox[{"Double", "[", "Pmult", "]"}]}], ";"}]}], 
+        "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", "res", "]"}], ";"}]}], "\[IndentingNewLine]", 
+     "]"}]}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NaiveECDLP", "::", "usage"}], "=", 
+   "\"\<Naively solve the DLP nP=Q on the elliptic curve y^2=x^3+Ax+B mod \
+p.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NaiveECDLP", "[", 
+    RowBox[{"A_", ",", " ", "p_", ",", " ", "P_", ",", " ", "Q_"}], "]"}], 
+   " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Pn", ",", " ", "n"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Pn", " ", "=", " ", "P"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"n", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"While", "[", 
+       RowBox[{
+        RowBox[{"Pn", " ", "\[NotEqual]", " ", "Q"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"Pn", " ", "\[Equal]", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "1"}], ",", " ", "0"}], "}"}]}], ",", " ", 
+           RowBox[{"Break", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Pn", " ", "=", " ", 
+          RowBox[{"ECAdd", "[", 
+           RowBox[{"A", ",", " ", "p", ",", " ", "Pn", ",", " ", "P"}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"n", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"Pn", " ", "\[Equal]", " ", "Q"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "n", "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Print", "[", "\"\<Could not solve nP=Q.\>\"", "]"}], 
+         ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7924805660364237`*^9, 3.792480620750354*^9}, {
+   3.7924806837110043`*^9, 3.792480803895204*^9}, {3.7924808445284977`*^9, 
+   3.7924808893608294`*^9}, {3.792480943823824*^9, 3.792481265665716*^9}, {
+   3.792481622573702*^9, 3.79248170337306*^9}, {3.792481800900173*^9, 
+   3.7924818108594522`*^9}, {3.792481884646511*^9, 3.792481923572359*^9}, {
+   3.7924819645420933`*^9, 3.7924821605660477`*^9}, {3.7924823671352158`*^9, 
+   3.792482856234811*^9}, {3.7924829173552437`*^9, 3.792482951833789*^9}, {
+   3.792483003052911*^9, 3.7924832600032463`*^9}, {3.79248330246135*^9, 
+   3.792483327002728*^9}, {3.792483363285056*^9, 3.792483449050825*^9}, {
+   3.7924835071414537`*^9, 3.792483730373809*^9}, {3.7924838031587553`*^9, 
+   3.792483916495756*^9}, {3.7924839576063766`*^9, 3.792484007807372*^9}, {
+   3.792484085746726*^9, 3.792484183135932*^9}, {3.792484329945327*^9, 
+   3.792484356367448*^9}, {3.792484395343823*^9, 3.792484423472584*^9}, {
+   3.7924849385544147`*^9, 3.792484991555216*^9}, {3.79248535159058*^9, 
+   3.792485452276711*^9}, {3.792485515166678*^9, 3.792485804347537*^9}, {
+   3.79248584235226*^9, 3.792485884079586*^9}, {3.792485930497151*^9, 
+   3.792486021488215*^9}, {3.792486080401719*^9, 3.7924861710652246`*^9}, 
+   3.792486221082313*^9, {3.792486275764017*^9, 3.7924862949292793`*^9}, {
+   3.7924890839264193`*^9, 3.792489140669547*^9}, {3.7924895992001762`*^9, 
+   3.792489618687668*^9}, {3.792489787930296*^9, 3.792489794259869*^9}, {
+   3.792489827634096*^9, 3.792490129402573*^9}, {3.792490417111127*^9, 
+   3.792490420434936*^9}, {3.792490529523089*^9, 3.7924905656293297`*^9}, {
+   3.792493763746337*^9, 3.7924937746106253`*^9}, {3.792493858034463*^9, 
+   3.792493948891472*^9}, {3.7924939844280653`*^9, 3.792494077302722*^9}, {
+   3.792494281053093*^9, 3.7924942811489363`*^9}, {3.792494344750743*^9, 
+   3.792494434796185*^9}, {3.792497534596888*^9, 3.792497668983561*^9}, {
+   3.7924977960281487`*^9, 3.792497945888159*^9}, {3.792498060072702*^9, 
+   3.7924980625446377`*^9}, {3.792498096832882*^9, 3.7924980972650337`*^9}, {
+   3.7924983584277363`*^9, 3.792498358791947*^9}, {3.792498477971936*^9, 
+   3.792498478121154*^9}, {3.792499055886915*^9, 3.792499189975905*^9}, {
+   3.792499298796692*^9, 3.792499317788669*^9}, {3.792499353619733*^9, 
+   3.7924996009661617`*^9}, {3.792500012701641*^9, 3.792500017311619*^9}, {
+   3.792500130842795*^9, 3.792500136588458*^9}, {3.792500238325405*^9, 
+   3.792500239352788*^9}, {3.792500286930645*^9, 3.792500296753923*^9}, {
+   3.792501144206184*^9, 
+   3.7925011445915422`*^9}},ExpressionUUID->"01ae5dce-d632-4044-a658-\
+8ec49a636d9c"]
+},
+WindowSize->{952, 1047},
+WindowMargins->{{Automatic, 4}, {Automatic, 29}},
+FrontEndVersion->"11.1 for Linux x86 (64-bit) (April 18, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 16367, 398, 1898, "Input", "ExpressionUUID" -> \
+"01ae5dce-d632-4044-a658-8ec49a636d9c"]
+}
+]
+*)
+
